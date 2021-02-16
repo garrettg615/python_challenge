@@ -20,12 +20,10 @@ with open(py_bank) as file_object:
         #print(f' {month} : {revenue}')
         
 tot_month = len(month)
-
-
-
 net_total = 0
 ave_change = []
 tot_change = 0
+new_month = []
 
 for value in revenue:
     net_total = net_total + value
@@ -33,23 +31,27 @@ for value in revenue:
 for i in range(0,(tot_month-1)):
     diff = revenue[i+1] - revenue[i]
     ave_change.append(diff)
+    new_month.append(month[i+1])
 
 for j in ave_change:
     tot_change = tot_change + j
     working = tot_change/len(ave_change)
 
-zip_list = zip(month,ave_change)
+zip_list = zip(new_month,ave_change)
 clan = list(zip_list)
-print (clan)
 
+for x in clan:
+    if x[1] == max(ave_change):
+        g = x[0]       
+        h = x[1]
+    elif x[1] == min(ave_change):
+        m = x[0]
+        n = x[1]
 
 
 print(f'\nTotal Months:  {tot_month}')
 print(f'Total:  {net_total}')
 print(f'Average Change: ${round(working,2)}')
-print(f'Greatest Increase:  {max(ave_change)}')
-print(f'Greatest Decrease:  {min(ave_change)}')
-
-
-
+print(f'Greatest Increase: {g} : {h}')
+print(f'Greatest Decrease:  {m} : {n}')
 print('\n')
