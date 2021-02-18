@@ -26,26 +26,26 @@ tot_votes = len(voter_id)
 
 # For loop to find number and name of candidates running for office
 candidates = []
-for y in voted_for:
-    if y in candidates:
+for vote in voted_for:
+    if vote in candidates:
         continue
     else:
-        candidates.append(y)
+        candidates.append(vote)
 
 # Zip 3 lists from csv file into 1 list
-zipper = zip(voter_id, county, voted_for)
-zip_list = list(zipper)
+zip_list = zip(voter_id, county, voted_for)
+zipper = list(zip_list)
 
 # list to add number of votes per candidate (Khan, Correy, Li, O'Tooley)
 votes = [0,0,0,0]
 
 # for loop to add votes per candidate
-for x in zip_list:
-    if x[2] == "Khan":
+for ballot in zipper:
+    if ballot[2] == "Khan":
         votes[0] += 1
-    elif x[2] == "Correy":
+    elif ballot[2] == "Correy":
         votes[1] += 1
-    elif x[2] == "Li":
+    elif ballot[2] == "Li":
         votes[2] += 1
     else:
         votes[3] += 1
@@ -79,17 +79,17 @@ print(f"\nWinner:        {winner}")
 print("\n")
 
 
-with open(output_path, 'w') as results:
+with open(output_path, 'w', newline="") as results:
     csvwriter = csv.writer(results)
     
-    csvwriter.writerow(["\nElection Results"])
+    csvwriter.writerow(["Election Results"])
     csvwriter.writerow(["_______________________________"])
-    csvwriter.writerow([f'\nTotal Votes:  {tot_votes}'])
+    csvwriter.writerow([f'Total Votes:  {tot_votes}'])
     csvwriter.writerow(["_______________________________"])
-    csvwriter.writerow([f'\n{candidates[0]}:          {round(khan,4)}% ({votes[0]})'])
+    csvwriter.writerow([f'{candidates[0]}:          {round(khan,4)}% ({votes[0]})'])
     csvwriter.writerow([f'{candidates[1]}:        {round(correy,4)}% ({votes[1]})'])
     csvwriter.writerow([f'{candidates[2]}:            {round(li,4)}% ({votes[2]})'])
     csvwriter.writerow([f"{candidates[3]}:      {round(tool,4)}%  ({votes[3]})"])
     csvwriter.writerow(["_______________________________"])
-    csvwriter.writerow([f"\nWinner:        {winner}"])
+    csvwriter.writerow([f"Winner:        {winner}"])
     
