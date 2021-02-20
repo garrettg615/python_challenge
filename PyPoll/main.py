@@ -5,7 +5,7 @@ import csv
 csvpath = os.path.join("Resources","election_data.csv")
 output_path = os.path.join("Analysis", "election_analysis.txt")
 
-# Convert CSV file into date to interpret with python
+# Read CSV file into python for analysis
 with open(csvpath) as file_object:
     csvreader = csv.reader(file_object, delimiter=",")
     csvheader = next(csvreader)
@@ -24,19 +24,21 @@ with open(csvpath) as file_object:
 # total votes
 tot_votes = len(voter_id)
 
-# For loop to find number and name of candidates running for office
-candidates = []
-for vote in voted_for:
-    if vote in candidates:
-        continue
-    else:
-        candidates.append(vote)
-
 # Zip 3 lists from csv file into 1 list
 zip_list = zip(voter_id, county, voted_for)
 zipper = list(zip_list)
 
-# list to add number of votes per candidate (Khan, Correy, Li, O'Tooley)
+# For loop to find candidates running for office 
+candidates = []
+for candidate in voted_for:
+    if candidate in candidates:
+        # if candidate is in candidates, then go to next name in list
+        continue
+    else:
+        # if candidate is not in list candidate, then append to list candidates
+        candidates.append(candidate)
+
+# list to count number of votes per candidate (Khan, Correy, Li, O'Tooley)
 votes = [0,0,0,0]
 
 # for loop to add votes per candidate
@@ -47,7 +49,7 @@ for ballot in zipper:
         votes[1] += 1
     elif ballot[2] == "Li":
         votes[2] += 1
-    else:
+    else: # O'Tooley
         votes[3] += 1
 
 # percentage of votes for each candidate
@@ -56,7 +58,7 @@ correy = (votes[1]/tot_votes) * 100
 li = (votes[2]/tot_votes) * 100
 tool = (votes[3]/tot_votes) * 100
 
-# Zip list together to find out winner of election
+# Zip lists for candidates and votes together
 zip_list2 = zip(candidates,votes)
 zipper2 = list(zip_list2)
 
